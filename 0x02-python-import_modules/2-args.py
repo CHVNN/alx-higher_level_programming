@@ -1,7 +1,8 @@
+es (13 sloc) 397 Bytes
 #!/usr/bin/python3
 
-if __name__ == "__main__": 
-    """prints the number of a list of args""" 
+if __name__ == "__main__":
+    """Print the number of and list of arguments."""
     import sys
 
     count = len(sys.argv) - 1
