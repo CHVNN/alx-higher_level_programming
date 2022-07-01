@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
-if __name__ == "__main__": #prints the number of a list of args
+if __name__ == "__main__": 
+"""prints the number of a list of args"""
     
     import sys
 
