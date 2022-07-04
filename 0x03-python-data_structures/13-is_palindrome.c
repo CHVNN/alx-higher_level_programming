@@ -1,72 +1,38 @@
 #include "lists.h"
 
-listint_t *reverse_listint(listint_t **head);
-int is_palindrome(listint_t **head);
-
 /**
- * reverse_listint - Reverses a singly-linked listint_t list.
- * @head: A pointer to the starting node of the list to reverse.
+ *is_palindrome - Checks if a singly linked list is a palindrome
  *
- * Return: A pointer to the head of the reversed list.
- */
-listint_t *reverse_listint(listint_t **head)
-{
-	listint_t *node = *head, *next, *prev = NULL;
-
-	while (node)
-	{
-		next = node->next;
-		node->next = prev;
-		prev = node;
-		node = next;
-	}
-
-	*head = prev;
-	return (*head);
-}
-
-/**
- * is_palindrome - Checks if a singly linked list is a palindrome.
- * @head: A pointer to the head of the linked list.
- *
- * Return: If the linked list is not a palindrome - 0.
- *         If the linked list is a palindrome - 1.
+ *@head: Head of singly linked list
+ *Return: 1 if palindrome, 0 if not
  */
 int is_palindrome(listint_t **head)
 {
-	listint_t *tmp, *rev, *mid;
-	size_t size = 0, i;
+	listint_t *ptr = *head, *ptr_2;
+	int len = 0, i = 0, n, k, *entries;
 
-	if (*head == NULL || (*head)->next == NULL)
-		return (1);
-
-	tmp = *head;
-	while (tmp)
+	while(ptr)
 	{
-		size++;
-		tmp = tmp->next;
+		len++;
+		ptr = ptr->next;
 	}
 
-	tmp = *head;
-	for (i = 0; i < (size / 2) - 1; i++)
-		tmp = tmp->next;
-
-	if ((size % 2) == 0 && tmp->n != tmp->next->n)
-		return (0);
-
-	tmp = tmp->next->next;
-	rev = reverse_listint(&tmp);
-	mid = rev;
-
-	tmp = *head;
-	while (rev)
+	entries = malloc(sizeof(*entries) * (len + 1));
+	ptr_2 = *head;
+	while(ptr_2)
 	{
-		if (tmp->n != rev->n)
+		entries[i++] = ptr_2->n;
+		ptr_2 = ptr_2->next;
+	}
+	n = len / 2;
+	for (k = 0; k <= n; k++)
+	{
+		if (entries[k] != entries[(len - 1) - k])
+		{
+			free(entries);
 			return (0);
-		tmp = tmp->next;
-		rev = rev->next;
+		}
 	}
-	reverse_listint(&mid);
-
+	free(entries);
 	return (1);
 }
